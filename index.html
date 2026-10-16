@@ -77,92 +77,71 @@
     </div>
   </section>
 
-  <script>
+  
     
+<script>  
+let requests = JSON.parse(  
+  localStorage.getItem("communityRequests") || "[]"  
+);  
+  
+function saveRequests() {  
+  localStorage.setItem(  
+    "communityRequests",  
+    JSON.stringify(requests)  
+  );  
+}  
+  
+function displaySavedRequests() {  
+  const container = document.getElementById("requests");  
+  container.innerHTML = "";  
+  
+  requests.forEach(function(item) {  
+    const card = document.createElement("div");  
+    card.className = "request";  
+  
+    const title = document.createElement("strong");  
+    title.textContent = item.category + " — " + item.name;  
+  
+    const message = document.createElement("p");  
+    message.textContent = item.details;  
+  
+    const offerButton = document.createElement("button");  
+    offerButton.textContent = "🤝 Offer Help";  
+  
+    offerButton.addEventListener("click", function() {  
+      alert("Thank you for offering to help " + item.name + "!");  
+    });  
+  
+    card.append(title, message, offerButton);  
+    container.appendChild(card);  
+  });  
+}  
+  
+document.getElementById("helpForm").addEventListener(  
+  "submit",  
+  function(event) {  
+    event.preventDefault();  
+  
+    const name = document.getElementById("person").value.trim();  
+    const category = document.getElementById("category").value;  
+    const details = document.getElementById("details").value.trim();  
+  
+    if (!name || !details) return;  
+  
+    requests.unshift({  
+      name: name,  
+      category: category,  
+      details: details  
+    });  
+  
+    saveRequests();  
+    displaySavedRequests();  
+    this.reset();  
+  }  
+);  
+  
+displaySavedRequests();  
+</script>
 
-let requests = JSON.parse(
-  localStorage.getItem("communityRequests") || "[]"
-);
-
-function saveRequests() {
-  localStorage.setItem(
-    "communityRequests",
-    JSON.stringify(requests)
-  );
-}
-    
-    
-    document.getElementById("helpForm").addEventListener("submit", function(event) {
-      event.preventDefault();
-
-      const name = document.getElementById("person").value.trim();
-      const category = document.getElementById("category").value;
-      const details = document.getElementById("details").value.trim();
-
-      if (!name || !details) return;
-
-      const card = document.createElement("div");
-      card.className = "request";
-
-      const title = document.createElement("strong");
-      title.textContent = category + " — " + name;
-
-      const message = document.createElement("p");
-      message.textContent = details;
-
-      card.append(title, message);
-
-const offerButton = document.createElement("button");
-
-offerButton.textContent = "🤝 Offer Help";
-
-offerButton.style.backgroundColor = "#2176b5";
-offerButton.style.color = "white";
-offerButton.style.padding = "12px 20px";
-offerButton.style.border = "none";
-offerButton.style.borderRadius = "8px";
-offerButton.style.marginTop = "12px";
-offerButton.style.fontSize = "16px";
-
-offerButton.addEventListener("click", function () {
-  alert("Thank you for offering to help " + name + "!");
-});
-
-card.appendChild(offerButton);
-      
-requests.push({
-  name: name,
-  category: category,
-  details: details
-});
-
-function displaySavedRequests() {
-  const container = document.getElementById("requests");
-
-  container.innerHTML = "";
-
-  requests.forEach(function(item) {
-    const card = document.createElement("div");
-    card.className = "request";
-
-    const title = document.createElement("strong");
-    title.textContent = item.category + " — " + item.name;
-
-    const message = document.createElement("p");
-    message.textContent = item.details;
-
-    card.append(title, message);
-    container.appendChild(card);
-  });
-}
-
-displaySavedRequests();
-      
-      
-
-      document.getElementById("requests").prepend(card);
-      this.reset();
-    });
-  </script>
 </body>
 </html>
