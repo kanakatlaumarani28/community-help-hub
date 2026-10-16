@@ -82,7 +82,7 @@
 let requests = JSON.parse(
   localStorage.getItem("communityRequests") || "[]"
 );
-
+saveRequests();
 function saveRequests() {
   localStorage.setItem(
     "communityRequests",
