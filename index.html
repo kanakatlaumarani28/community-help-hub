@@ -79,10 +79,11 @@
 
   <script>
     
+
 let requests = JSON.parse(
   localStorage.getItem("communityRequests") || "[]"
 );
-saveRequests();
+
 function saveRequests() {
   localStorage.setItem(
     "communityRequests",
@@ -128,6 +129,36 @@ offerButton.addEventListener("click", function () {
 });
 
 card.appendChild(offerButton);
+      
+requests.push({
+  name: name,
+  category: category,
+  details: details
+});
+
+function displaySavedRequests() {
+  const container = document.getElementById("requests");
+
+  container.innerHTML = "";
+
+  requests.forEach(function(item) {
+    const card = document.createElement("div");
+    card.className = "request";
+
+    const title = document.createElement("strong");
+    title.textContent = item.category + " — " + item.name;
+
+    const message = document.createElement("p");
+    message.textContent = item.details;
+
+    card.append(title, message);
+    container.appendChild(card);
+  });
+}
+
+displaySavedRequests();
+      
+      
 
       document.getElementById("requests").prepend(card);
       this.reset();
