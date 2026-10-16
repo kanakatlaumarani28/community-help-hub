@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Community Help Hub</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: #f0f7ff;
+      color: #20304a;
+    }
+    header {
+      background: #1769aa;
+      color: white;
+      padding: 24px;
+      text-align: center;
+      border-radius: 16px;
+    }
+    .card {
+      background: white;
+      padding: 18px;
+      margin-top: 16px;
+      border-radius: 12px;
+    }
+    input, select, button {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccd5e0;
+      font-size: 16px;
+    }
+    button {
+      background: #1769aa;
+      color: white;
+      border: none;
+    }
+    .request {
+      background: #e4f4e9;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Community Help Hub</h1>
+    <p>Small acts of kindness make a big difference.</p>
+  </header>
+
+  <section class="card">
+    <h2>Request Help 🤝</h2>
+    <form id="helpForm">
+      <input id="person" placeholder="Your first name" required>
+      <select id="category">
+        <option>Education</option>
+        <option>Food</option>
+        <option>Clothing</option>
+        <option>Other</option>
+      </select>
+      <input id="details" placeholder="What help do you need?" required>
+      <button type="submit">Post Request</button>
+    </form>
+  </section>
+
+  <section class="card">
+    <h2>Community Requests</h2>
+    <div id="requests">
+      <div class="request">📚 Example: A student needs study materials.</div>
+      <div class="request">👕 Example: A family needs donated clothes.</div>
+    </div>
+  </section>
+
+  <script>
+    document.getElementById("helpForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const name = document.getElementById("person").value.trim();
+      const category = document.getElementById("category").value;
+      const details = document.getElementById("details").value.trim();
+
+      if (!name || !details) return;
+
+      const card = document.createElement("div");
+      card.className = "request";
+
+      const title = document.createElement("strong");
+      title.textContent = category + " — " + name;
+
+      const message = document.createElement("p");
+      message.textContent = details;
+
+      card.append(title, message);
+      document.getElementById("requests").prepend(card);
+      this.reset();
+    });
+  </script>
+</body>
+</html>
