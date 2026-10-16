@@ -97,6 +97,25 @@
       message.textContent = details;
 
       card.append(title, message);
+
+const offerButton = document.createElement("button");
+
+offerButton.textContent = "🤝 Offer Help";
+
+offerButton.style.backgroundColor = "#2176b5";
+offerButton.style.color = "white";
+offerButton.style.padding = "12px 20px";
+offerButton.style.border = "none";
+offerButton.style.borderRadius = "8px";
+offerButton.style.marginTop = "12px";
+offerButton.style.fontSize = "16px";
+
+offerButton.addEventListener("click", function () {
+  alert("Thank you for offering to help " + name + "!");
+});
+
+card.appendChild(offerButton);
+
       document.getElementById("requests").prepend(card);
       this.reset();
     });
