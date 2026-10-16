@@ -78,6 +78,19 @@
   </section>
 
   <script>
+    
+let requests = JSON.parse(
+  localStorage.getItem("communityRequests") || "[]"
+);
+
+function saveRequests() {
+  localStorage.setItem(
+    "communityRequests",
+    JSON.stringify(requests)
+  );
+}
+    
+    
     document.getElementById("helpForm").addEventListener("submit", function(event) {
       event.preventDefault();
 
